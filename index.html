@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anatomy MCQ Review</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#eef2f7;color:#0f172a;line-height:1.6;padding-bottom:60px}
+#err{display:none;background:#fee2e2;color:#991b1b;padding:12px 16px;font-size:14px;direction:ltr}
+.wrap{max-width:820px;margin:0 auto;padding:0 12px}
+.hero{background:linear-gradient(135deg,#0e7490,#0891b2);color:#fff;border-radius:0 0 22px 22px;padding:28px 18px 22px;text-align:center}
+.hero h1{font-size:26px;margin-bottom:4px}
+.hero p{opacity:.9;font-size:14px}
+.hero .by{margin-top:6px;font-weight:700;letter-spacing:.04em}
+.filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0 6px}
+.fbtn{padding:8px 14px;border-radius:20px;border:2px solid #0e7490;background:#fff;color:#0e7490;font-weight:700;font-size:13px;cursor:pointer}
+.fbtn.active{background:#0e7490;color:#fff}
+.count{text-align:center;color:#475569;font-size:14px;margin-bottom:6px}
+.bar{position:sticky;top:0;z-index:50;background:#0f172a;color:#fff;padding:8px 12px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.bar-in{max-width:820px;margin:0 auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;font-weight:700}
+.bar .pill{background:rgba(255,255,255,.12);padding:3px 10px;border-radius:14px}
+.pg{flex:1;min-width:60px;height:6px;background:rgba(255,255,255,.2);border-radius:6px;overflow:hidden}
+.pg i{display:block;height:100%;width:0;background:#22d3ee;transition:width .3s}
+.sec{margin:26px 0 6px;text-align:center;font-weight:700;color:#0e7490;font-size:14px;background:#e0f2fe;border:1px solid #bae6fd;border-radius:12px;padding:8px 12px}
+.card{background:#fff;border-radius:16px;padding:18px 16px;margin:12px 0;box-shadow:0 2px 12px rgba(15,23,42,.08);border-right:6px solid #cbd5e1}
+.card.ok{border-right-color:#10b981}.card.no{border-right-color:#ef4444}
+.qh{display:flex;align-items:center;gap:8px;margin-bottom:10px;direction:ltr}
+.qn{background:#0e7490;color:#fff;min-width:32px;height:32px;border-radius:16px;padding:0 8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px}
+.tag{background:#e0f2fe;color:#0e7490;border-radius:12px;padding:2px 10px;font-size:12px;font-weight:700}
+.qt{font-size:16px;font-weight:700;direction:ltr;text-align:left;margin-bottom:12px}
+.fig{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:6px;margin-bottom:12px;direction:ltr}
+
+.hint{font-size:13px;color:#0e7490;margin-bottom:8px}
+.opts{display:flex;flex-direction:column;gap:8px;direction:ltr}
+.opt{display:flex;align-items:center;gap:10px;text-align:left;width:100%;padding:11px 12px;border:2px solid #e2e8f0;border-radius:12px;background:#fff;font-size:15px;cursor:pointer;color:#1e293b}
+.opt b{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:13px;background:#f1f5f9;border:2px solid #cbd5e1;font-size:12px;flex-shrink:0}
+.opt.sel{border-color:#0e7490;background:#ecfeff}
+.opt.right{border-color:#10b981;background:#ecfdf5;color:#065f46;font-weight:700}
+.opt.right b{background:#10b981;border-color:#10b981;color:#fff}
+.opt.bad{border-color:#ef4444;background:#fef2f2;color:#7f1d1d}
+.opt.bad b{background:#ef4444;border-color:#ef4444;color:#fff}
+.inp{width:100%;padding:11px 12px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;margin-bottom:8px;direction:ltr}
+.inp.ok{border-color:#10b981;background:#ecfdf5}.inp.no{border-color:#ef4444;background:#fef2f2}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.btn{padding:10px 18px;border:0;border-radius:12px;background:#0e7490;color:#fff;font-weight:700;font-size:14px;cursor:pointer}
+.btn.gh{background:#e2e8f0;color:#334155}.btn.g{background:#059669}.btn.r{background:#dc2626}
+.btn:disabled{opacity:.5;cursor:default}
+.solbox{display:none;margin-top:12px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:10px;direction:ltr;font-size:14px}
+.solbox .ans{font-weight:700;color:#0e7490;border-bottom:1px dashed #bae6fd;padding-bottom:6px;margin-bottom:6px}
+.grade{display:none;margin-top:10px}
+.fb{display:none;margin-top:12px;padding:10px 12px;border-radius:10px;font-size:14px}
+.fb.ok{background:#ecfdf5;color:#065f46;border-right:4px solid #10b981}
+.fb.no{background:#fef2f2;color:#7f1d1d;border-right:4px solid #ef4444}
+.note{margin-top:6px;padding:6px 10px;background:#fffbeb;border:1px solid #fcd34d;color:#92400e;border-radius:8px}
+.sub{display:block}
+#result{display:none;background:#fff;border-radius:18px;padding:22px 16px;margin:20px 0;text-align:center;box-shadow:0 4px 20px rgba(15,23,42,.12)}
+#result h2{margin-bottom:6px}
+.big{font-size:44px;font-weight:900;color:#0e7490}
+.stats{display:flex;gap:10px;justify-content:center;margin:14px 0}
+.stat{flex:1;border-radius:12px;padding:10px;font-weight:700}
+.stat.c{background:#ecfdf5;color:#059669}.stat.w{background:#fef2f2;color:#dc2626}.stat.p{background:#fffbeb;color:#d97706}
+.rev{text-align:right;margin-top:14px}
+.ri{background:#fef2f2;border-right:4px solid #ef4444;border-radius:10px;padding:10px;margin-bottom:8px;font-size:14px}
+.ri .q{font-weight:700;direction:ltr;text-align:left}
+.sbtn{display:block;margin:20px auto 0;padding:14px 50px;font-size:16px}
+
+.qt{overflow-wrap:anywhere}
+.flab{text-align:center;color:#475569;font-size:12px;font-weight:700;margin-top:10px}
+.frow{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:8px 0}
+</style>
+</head>
+<body>
+<div id="err"></div>
+<div class="hero">
+  <h1>🦴 Anatomy MCQ Review</h1>
+  <p>20 questions · Anatomical position · Planes · Skeleton · Bones · Joints</p>
+  <p class="by">BY MOSTAFA SALLAM</p>
+</div>
+<div class="wrap">
+  <div class="count">عدد الأسئلة: <b id="qCount">0</b></div>
+</div>
+<div class="bar"><div class="bar-in">
+  <span class="pill" id="sNum">0/0</span><span class="pill" id="sC">✅ 0</span><span class="pill" id="sW">❌ 0</span><span class="pill" id="sP">📊 0%</span>
+  <div class="pg"><i id="sFill"></i></div>
+</div></div>
+<div class="wrap">
+  <div id="cards"><div class="card" style="text-align:center;direction:rtl">⏳ جاري تحميل الأسئلة...<br><small>لو الرسالة دي فضلت ظاهرة يبقى الكود اتنسخ ناقص أو الصفحة مش مفتوحة من رابط github.io.</small></div></div>
+  <button class="btn sbtn" id="submitBtn" disabled>عرض النتيجة 🎯</button>
+  <div id="result">
+    <h2>🎉 النتيجة</h2>
+    <div class="big"><span id="rScore">0</span> / <span id="rTotal">0</span></div>
+    <div id="rMsg"></div>
+    <div class="stats"><div class="stat c">✅ صح<br><span id="rC">0</span></div><div class="stat w">❌ غلط<br><span id="rW">0</span></div><div class="stat p">📊 النسبة<br><span id="rP">0%</span></div></div>
+    <div class="btns" style="justify-content:center"><button class="btn" id="againBtn">🔄 إعادة الاختبار</button><button class="btn gh" id="topBtn">🏠 للأعلى</button></div>
+    <div class="rev" id="rev"></div>
+  </div>
+</div>
+<script>
+window.onerror=function(m,s,l){var e=document.getElementById('err');if(e){e.style.display='block';e.textContent='JS error: '+m+' (line '+l+')';}};
+var L='ABCD'.split('');
+var SECS={a:{tag:'Anatomy MCQ',title:'ANATOMY MCQ REVIEW'}};
+var ALL=[
+{"n":1,"num":"1","q":"Anatomical position is:","o":["Sitting","Lying","Standing erect","Bending"],"c":2,"exp":"الوضع التشريحي هو الوقوف منتصباً (Standing erect)، والوجه ينظر للأمام وراحتا اليدين للأمام."},
+{"n":2,"num":"2","q":"In anatomical position, the face looks:","o":["Down","Up","Forward","Sideway"],"c":2,"exp":"في الوضع التشريحي الوجه ينظر للأمام (Forward)."},
+{"n":3,"num":"3","q":"The elbow is:","o":["Proximal to shoulder","Distal to shoulder","Medial to wrist","Superior to wrist"],"c":1,"exp":"الكوع (Elbow) بعيد عن الكتف، أي Distal to shoulder."},
+{"n":4,"num":"4","q":"The wrist is:","o":["Proximal to elbow","Distal to elbow","Medial to elbow","Superior to elbow"],"c":1,"exp":"المعصم (Wrist) بعيد عن الكوع، أي Distal to elbow."},
+{"n":5,"num":"5","q":"The nose is:","o":["Lateral to eye","Medial to eye","Inferior to mouth","Posterior to ear"],"c":1,"exp":"الأنف (Nose) أقرب لخط المنتصف من العين، أي Medial to eye."},
+{"n":6,"num":"6","q":"The knee is:","o":["Proximal to ankle","Distal to hip","Medial to ankle","Superior to hip"],"c":0,"exp":"الركبة (Knee) أقرب لجذع الجسم من الكاحل، أي Proximal to ankle."},
+{"n":7,"num":"7","q":"The median plane divides the body into:","o":["Equal right and left","Unequal parts","Front and back","Upper and lower"],"c":0,"exp":"المستوى المتوسط (Median) يقسم الجسم إلى نصفين متساويين أيمن وأيسر."},
+{"n":8,"num":"8","q":"The transverse plane divides the body into:","o":["Right and left","Front and back","Upper and lower","Medial and lateral"],"c":2,"exp":"المستوى المستعرض (Transverse) يقسم الجسم إلى جزء علوي وجزء سفلي."},
+{"n":9,"num":"9","q":"Another name for transverse plane is:","o":["Vertical","Horizontal","Sagittal","Frontal"],"c":1,"exp":"الاسم الآخر للمستوى المستعرض هو المستوى الأفقي (Horizontal)."},
+{"n":10,"num":"10","q":"Sagittal planes are:","o":["Vertical","Horizontal","Curved","Oblique only"],"c":0,"exp":"المستويات السهمية (Sagittal) رأسية (Vertical) وتقسم الجسم لجزء أيمن وجزء أيسر."},
+{"n":11,"num":"11","q":"The skeleton is divided into:","o":["Head and neck","Axial and appendicular","Upper and lower","Right and left"],"c":1,"exp":"ينقسم الهيكل العظمي إلى هيكل محوري (Axial) وهيكل طرفي (Appendicular)."},
+{"n":12,"num":"12","q":"The skull is part of the:","o":["Appendicular skeleton","Axial skeleton","Pelvic skeleton","Limb skeleton"],"c":1,"exp":"الجمجمة جزء من الهيكل المحوري (Axial skeleton)."},
+{"n":13,"num":"13","q":"The femur is:","o":["Short bone","Flat bone","Long bone","Irregular bone"],"c":2,"exp":"عظمة الفخذ (Femur) عظمة طويلة (Long bone)."},
+{"n":14,"num":"14","q":"The patella is a:","o":["Long bone","Flat bone","Sesamoid bone","Irregular bone"],"c":2,"exp":"الرضفة (الصابونة) عظمة سمسمانية (Sesamoid bone)."},
+{"n":15,"num":"15","q":"The bones of the upper limb belong to:","o":["Axial skeleton","Appendicular skeleton","Skull","Vertebral column"],"c":1,"exp":"عظام الطرف العلوي تتبع الهيكل الطرفي (Appendicular skeleton)."},
+{"n":16,"num":"16","q":"The scapula is a:","o":["Long bone","Flat bone","Short bone","Sesamoid bone"],"c":1,"exp":"لوح الكتف (Scapula) عظمة مسطحة (Flat bone)."},
+{"n":17,"num":"17","q":"The vertebral column usually has:","o":["23 vertebrae","26 vertebrae","33 vertebrae","36 vertebrae"],"c":2,"exp":"العمود الفقري يحتوي عادةً على 33 فقرة."},
+{"n":18,"num":"18","q":"The skull protects the:","o":["Brain","Heart","Lungs","Spinal cord"],"c":0,"exp":"الجمجمة تحمي المخ (Brain)."},
+{"n":19,"num":"19","q":"Immovable joints with no movements are:","o":["Synovial","Fibrous","Cartilaginous","Saddle"],"c":1,"exp":"المفاصل الثابتة التي لا تتحرك هي المفاصل الليفية (Fibrous)."},
+{"n":20,"num":"20","q":"The sutures of the skull are:","o":["Movable joints","Slightly movable","Immovable joints","Synovial joints"],"c":2,"exp":"دروز الجمجمة (Sutures) مفاصل ثابتة (Immovable joints)."}
+];
+ALL.forEach(function(q){q.sec='a'});
+var cur=[],res={};
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function byN(n){for(var i=0;i<ALL.length;i++)if(ALL[i].n==n)return ALL[i];return null}
+function render(){
+  var h='',last='';
+  cur.forEach(function(q){
+    if(q.sec!==last){last=q.sec;h+='<div class="sec">'+esc(SECS[q.sec].title)+'</div>';}
+    h+='<div class="card" id="c'+q.n+'"><div class="qh"><span class="qn">'+esc(q.num)+'</span><span class="tag">'+esc(SECS[q.sec].tag)+'</span></div>';
+    h+='<div class="qt">'+esc(q.q)+'</div><div class="opts">';
+    q.o.forEach(function(o,i){h+='<button type="button" class="opt" data-n="'+q.n+'" data-i="'+i+'"><b>'+L[i]+'</b><span>'+esc(o)+'</span></button>'});
+    h+='</div><div class="fb" id="fb'+q.n+'"></div></div>';
+  });
+  $('cards').innerHTML=h||'<div class="card" style="text-align:center">مفيش أسئلة في الاختيار ده.</div>';
+}
+function updateBar(){
+  var total=cur.length,done=0,c=0;
+  for(var k in res){done++;if(res[k])c++;}
+  $('sNum').textContent=done+'/'+total;$('sC').textContent='✅ '+c;$('sW').textContent='❌ '+(done-c);
+  $('sP').textContent='📊 '+(done?Math.round(c/done*100):0)+'%';
+  $('sFill').style.width=(total?done/total*100:0)+'%';
+  $('submitBtn').disabled=done<1;
+}
+function onClick(e){
+  var b=e.target;
+  while(b&&b!==document&&!(b.getAttribute&&b.classList&&b.classList.contains('opt')))b=b.parentNode;
+  if(!b||b===document)return;
+  var q=byN(b.getAttribute('data-n'));
+  if(!q||res[q.n]!==undefined)return;
+  var i=+b.getAttribute('data-i'),ok=(i===q.c);
+  var bs=$('c'+q.n).querySelectorAll('.opt');
+  for(var j=0;j<bs.length;j++){var x=+bs[j].getAttribute('data-i');if(x===q.c)bs[j].classList.add('right');else if(x===i)bs[j].classList.add('bad');bs[j].disabled=true;}
+  res[q.n]=ok;$('c'+q.n).className='card '+(ok?'ok':'no');
+  var fb=$('fb'+q.n);fb.className='fb '+(ok?'ok':'no');fb.style.display='block';
+  fb.innerHTML=(ok?'✅ Correct!':'❌ Correct answer: <b dir="ltr">'+L[q.c]+') '+esc(q.o[q.c])+'</b>')+'<div dir="rtl" style="margin-top:6px">'+esc(q.exp)+'</div>';
+  updateBar();
+}
+function start(scroll){
+  cur=ALL.slice();
+  res={};$('qCount').textContent=cur.length;$('result').style.display='none';
+  render();updateBar();if(scroll)window.scrollTo(0,0);
+}
+function showResults(){
+  var done=0,c=0;
+  cur.forEach(function(q){if(res[q.n]!==undefined){done++;if(res[q.n])c++;}});
+  var p=done?Math.round(c/done*100):0,left=cur.length-done;
+  $('rScore').textContent=c;$('rTotal').textContent=done;$('rC').textContent=c;$('rW').textContent=done-c;$('rP').textContent=p+'%';
+  $('rMsg').textContent=(p>=90?'ممتاز! مستواك رائع 🌟':p>=75?'جيد جداً، كمّل كده 👏':p>=50?'مستوى كويس، راجع الأخطاء وهتتحسن 💪':'محتاج مراجعة أكتر، ذاكر وجرّب تاني 📚')+(left?'  (لسه فاضل '+left+' سؤال بدون إجابة)':'');
+  var wr=cur.filter(function(q){return res[q.n]===false}),h='';
+  if(wr.length){h='<h3>📝 مراجعة الأسئلة الغلط ('+wr.length+')</h3>';wr.forEach(function(q){h+='<div class="ri"><div class="q">'+esc(SECS[q.sec].tag)+' — Q'+esc(q.num)+': '+esc(q.q)+'</div><div>✅ <b dir="ltr">'+L[q.c]+') '+esc(q.o[q.c])+'</b></div><div dir="rtl" style="font-size:13px">'+esc(q.exp)+'</div></div>';});}
+  else h='<h3>🎯 كل إجاباتك صح!</h3>';
+  $('rev').innerHTML=h;$('result').style.display='block';$('result').scrollIntoView();
+}
+function chips(id,setter){
+  var bs=document.querySelectorAll('#'+id+' .fbtn');
+  for(var i=0;i<bs.length;i++)bs[i].addEventListener('click',function(){
+    for(var j=0;j<bs.length;j++)bs[j].classList.remove('active');
+    this.classList.add('active');setter(this.getAttribute('data-v'));start(false);
+  });
+}
+function init(){
+  
+  document.addEventListener('click',onClick);
+  $('submitBtn').addEventListener('click',showResults);
+  $('againBtn').addEventListener('click',function(){start(true)});
+  $('topBtn').addEventListener('click',function(){window.scrollTo(0,0)});
+  start(false);
+}
+init();
+</script>
+</body>
+</html>
